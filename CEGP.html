@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Editors Guild of the Philippines</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #c41e3a;
+            --accent: #f0c14b;
+            --light: #f5f5f5;
+            --dark: #0f0f1a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 5% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="[w3.org](http://www.w3.org/2000/svg)" viewBox="0 0 100 100"><text y=".9em" font-size="90" opacity="0.03">✒️</text></svg>') repeat;
+            background-size: 100px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero .tagline {
+            color: #ccc;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero .established {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--accent);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 5%;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--secondary);
+            transition: transform 0.3s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .about-card p {
+            color: #555;
+        }
+
+        /* History Section */
+        .history {
+            padding: 100px 5%;
+            background: var(--primary);
+            color: white;
+        }
+
+        .history .section-title h2 {
+            color: white;
+        }
+
+        .history .section-title p {
+            color: #aaa;
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--secondary);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            max-width: 350px;
+            margin-right: 30px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: 0;
+            margin-left: 30px;
+        }
+
+        .timeline-content h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+        }
+
+        /* Advocacy Section */
+        .advocacy {
+            padding: 100px 5%;
+            background: white;
+        }
+
+        .advocacy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .advocacy-card {
+            text-align: center;
+            padding: 2.5rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            transition: transform 0.3s;
+        }
+
+        .advocacy-card:hover {
+            transform: scale(1.05);
+        }
+
+        .advocacy-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .advocacy-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 5%;
+            background: var(--secondary);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 5%;
+            background: var(--light);
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .hashtags {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .hashtag {
+            background: var(--primary);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 5%;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 60px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .timeline-item::after {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo"><span>CEGP</span></a>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#history">History</a></li>
+            <li><a href="#advocacy">Advocacy</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>College Editors Guild of the <span>Philippines</span></h1>
+            <p class="tagline">The oldest, broadest, and only-existing intercollegiate alliance of student publications in the Asia-Pacific</p>
+            <p class="established">✦ Established July 25, 1931 ✦</p>
+            <div class="hero-buttons">
+                <a href="#about" class="btn btn-primary">Learn More</a>
+                <a href="#contact" class="btn btn-secondary">Join the Guild</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-title">
+            <h2>About the Guild</h2>
+            <p>A patriotic and democratic organization of student journalists</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-card">
+                <h3>🤝 A Broad Alliance</h3>
+                <p>The CEGP welcomes all publications and individuals regardless of race, class, religion, political persuasion, or language. We are united by our commitment to press freedom and the truth.</p>
+            </div>
+            <div class="about-card">
+                <h3>🇵🇭 Patriotic</h3>
+                <p>We ardently struggle against any foreign domination and control in economy, politics, culture, and all spheres of national life.</p>
+            </div>
+            <div class="about-card">
+                <h3>✊ Democratic</h3>
+                <p>We uphold and defend the interest and welfare of the Filipino youth and people, fighting for their right to information and expression.</p>
+            </div>
+            <div class="about-card">
+                <h3>📰 National Center for Campus Press Freedom</h3>
+                <p>We are steadfast in protecting and defending the right of every student to seek, receive, and impart information through any medium without interference.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history" id="history">
+        <div class="section-title">
+            <h2>Our History</h2>
+            <p>Over nine decades of defending press freedom</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1931</h3>
+                    <p>Founded on July 25 through a congregation of editors from The National (NU), The Varsitarian (UST), Philippine Collegian (UP), and The Guidon (ADMU). Wenceslao Vinzons served as the first president.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1932</h3>
+                    <p>The guild's progressive roots emerged when leaders opposed a bill granting higher salaries to Lower House members, mobilizing campus journalists and youth.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1960s</h3>
+                    <p>During the rise of student activism, CEGP transformed into a union linking journalism with national issues under progressive leadership.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1972–1980s</h3>
+                    <p>Despite Martial Law restrictions under Ferdinand Marcos that shut down campus publications, efforts continued to reconstitute the guild until its proper reinstatement in the early 1980s.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Present Day</h3>
+                    <p>CEGP remains one of the strongest student organizations in the country with a network spanning hundreds of schools across 68 provinces and cities nationwide.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>93+</h3>
+                <p>Years of Service</p>
+            </div>
+            <div class="stat-item">
+                <h3>700+</h3>
+                <p>Member Publications</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Partner Schools</p>
+            </div>
+            <div class="stat-item">
+                <h3>68</h3>
+                <p>Provinces & Cities</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advocacy Section -->
+    <section class="advocacy" id="advocacy">
+        <div class="section-title">
+            <h2>What We Do</h2>
+            <p>Our campaigns and advocacies</p>
+        </div>
+        <div class="advocacy-grid">
+            <div class="advocacy-card">
+                <div class="advocacy-icon">📢</div>
+                <h3>Organizing</h3>
+                <p>Attracting new members and providing assistance to publications without discrimination.</p>
+            </div>
+            <div class="advocacy-card">
+                <div class="advocacy-icon">✊</div>
+                <h3>Campaigns</h3>
+                <p>Leading nationwide movements to reopen closed publications and end campus press repression.</p>
+            </div>
+            <div class="advocacy-card">
+                <div class="advocacy-icon">🤝</div>
+                <h3>Alliance Work</h3>
+                <p>Forging unities and conducting activities with other organizations for common causes.</p>
+            </div>
+            <div class="advocacy-card">
+                <div class="advocacy-icon">🛡️</div>
+                <h3>Press Freedom Defense</h3>
+                <p>Protecting student journalists and their right to report the truth without fear.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-title">
+            <h2>Connect With Us</h2>
+            <p>Join the movement for press freedom</p>
+        </div>
+        <div class="contact-container">
+            <p>Follow us on social media and stay updated on our campaigns, events, and the state of campus press freedom in the Philippines.</p>
+            <div class="social-links">
+                <a href="[cegphils.medium.com](https://cegphils.medium.com/)" target="_blank" title="Medium">M</a>
+                <a href="[facebook.com](https://www.facebook.com/caborog.cegp)" target="_blank" title="Facebook">f</a>
+                <a href="[twitter.com](https://twitter.com/caborog_cegp)" target="_blank" title="Twitter">𝕏</a>
+            </div>
+            <div class="hashtags">
+                <span class="hashtag">#DefendPressFreedom</span>
+                <span class="hashtag">#EndStateFascism</span>
+                <span class="hashtag">#StopTheKillings</span>
+                <span class="hashtag">#JunkTerrorLaw</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 College Editors Guild of the Philippines. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">The truth shall set us free.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
